@@ -22,6 +22,7 @@ void textFile(FILE *readPtr);
 void updateRecord(FILE *credit_data);
 void newRecord(FILE *credit_data);
 void deleteRecord(FILE *credit_data);
+void displayTextFile(void);
 
 int main(int argc, char *argv[])
 {
@@ -43,7 +44,7 @@ int main(int argc, char *argv[])
     }
 
     // enable user to specify action
-    while ((choice = enterChoice()) != 4)
+    while ((choice = enterChoice()) != 5)
     {
         switch (choice)
         {
@@ -60,6 +61,10 @@ int main(int argc, char *argv[])
             deleteRecord(cfPtr);
             break;
         // display if user does not select valid choice
+        case 4:
+            textFile(cfPtr);   // create accounts.txt
+            displayTextFile(); // show it in terminal
+            break;
         default:
             puts("Incorrect choice");
             break;
@@ -286,8 +291,34 @@ unsigned int enterChoice(void)
                  "1 - update an account\n"
                  "2 - add a new account\n"
                  "3 - delete an account\n"
-                 "4 - end program \n:");
+                 "4 - display all account\n"
+                 "5 - end program \n:");
 
      scanf("%u", &menuChoice); // receive choice from user
     return menuChoice;
 } // end function enterChoice
+
+// display text file
+void displayTextFile(void)
+{
+    FILE *readPtr; // accounts.txt file pointer
+    char line[100]; // buffer to store each line
+    
+    // fopen opens the file; exits if file cannot be opened
+    if ((readPtr = fopen("accounts.txt", "r")) == NULL)
+    {
+        puts("File could not be opened.");
+    } // end if
+    else
+    {
+        // read and display each line from accounts.txt
+        printf("\n%-6s%-16s%-11s%10s\n", "Acct", "Last Name", "First Name", "Balance");
+        printf("----------------------------------------------\n");
+        while (fgets(line, sizeof(line), readPtr) != NULL)
+        {
+            printf("%s", line);
+        } // end while
+        
+        fclose(readPtr); // fclose closes the file
+    } // end else
+} // end function displayTextFile
