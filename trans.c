@@ -169,7 +169,8 @@ void updateRecord(FILE *credit_data)
     // Request transaction type
     printf("%s", "Enter choice ");
     printf("%s","\n1-Deposit");
-    printf("%s","\n2-Withdrawal\n:");
+    printf("%s","\n2-Withdrawal\n");
+    printf("%s", "3-Balance Enquiry\n:");
     scanf("%d", &option);
     
     switch (option) 
@@ -184,6 +185,8 @@ void updateRecord(FILE *credit_data)
             fseek(credit_data, -(long)sizeof(struct clientData), SEEK_CUR); 
             fwrite(&client, sizeof(struct clientData), 1, credit_data); 
             printf("Deposit successful\n"); 
+            // Display updated balance
+            printf("Updated Balance: %.2f\n", client.balance);
         }
         break;
         
@@ -197,16 +200,23 @@ void updateRecord(FILE *credit_data)
             fseek(credit_data, -(long)sizeof(struct clientData), SEEK_CUR); 
             fwrite(&client, sizeof(struct clientData), 1, credit_data); 
             printf("Withdrawal successful\n");
+            // Display updated balance
+            printf("Updated Balance: %.2f\n", client.balance);
         }
         break;
-    
+    case 3:
+        printf("\n===== BALANCE ENQUIRY =====\n");
+        printf("Account Number : %d\n", client.acctnum);
+        printf("Name           : %s %s\n", client.firstName, client.lastName);
+        printf("Current Balance: %.2f\n", client.balance);
+        printf("===========================\n");
+        break;
     default:
         printf("Invalid choice!\n");
         break;
     }
 
-    // Display updated balance
-    printf("Updated Balance: %.2f\n", client.balance);
+    
 } // end function updateRecord
 
 // delete an existing record
