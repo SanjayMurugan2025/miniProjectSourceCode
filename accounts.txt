@@ -1,0 +1,6 @@
+Acct  Last Name       First Name    Balance
+1     m               sanjay        1000.00
+111   m               sanjay        1000.00
+1234  m               sanjay        1241.00
+12345 doe             john           700.00
+32758 doe             john           500.00

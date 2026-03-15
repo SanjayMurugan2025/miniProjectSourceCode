@@ -298,7 +298,7 @@ unsigned int enterChoice(void)
     unsigned int menuChoice; // variable to store user's choice
     // display available options
     printf("%s", "\nEnter your choice\n"
-                 "1 - update an account\n"
+                 "1 - trasaction\n"
                  "2 - add a new account\n"
                  "3 - delete an account\n"
                  "4 - display all account\n"
